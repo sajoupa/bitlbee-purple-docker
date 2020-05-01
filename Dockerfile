@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-EXPOSE 6668
+# EXPOSE 6667
 
 WORKDIR /build
 
@@ -41,6 +41,5 @@ RUN apt-get -qy --purge remove git autoconf && \
     apt-get -qy --purge autoremove && \
     rm -rf /build
 
-RUN sed -i -e 's/\# DaemonPort = 6667/DaemonPort = 6668/' /etc/bitlbee/bitlbee.conf
-
-CMD ["/usr/sbin/bitlbee", "-F", "-n"]
+COPY entrypoint.sh /
+ENTRYPOINT /entrypoint.sh
